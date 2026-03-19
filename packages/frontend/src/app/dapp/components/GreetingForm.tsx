@@ -1,6 +1,7 @@
 'use client'
 
 import { useCurrentAccount } from '@mysten/dapp-kit'
+import { isValidSuiObjectId } from '@mysten/sui/utils'
 import { SuiSignAndExecuteTransactionOutput } from '@mysten/wallet-standard'
 import { Button, TextField } from '@radix-ui/themes'
 import useTransact from '@suiware/kit/useTransact'
@@ -9,6 +10,7 @@ import { ChangeEvent, FC, MouseEvent, PropsWithChildren, useState } from 'react'
 import CustomConnectButton from '~~/components/CustomConnectButton'
 import Loading from '~~/components/Loading'
 import {
+  CONTRACT_PACKAGE_ID_NOT_DEFINED,
   CONTRACT_PACKAGE_VARIABLE_NAME,
   EXPLORER_URL_VARIABLE_NAME,
 } from '~~/config/network'
@@ -36,6 +38,9 @@ const GreetingForm = () => {
   const packageId = useNetworkVariable(CONTRACT_PACKAGE_VARIABLE_NAME)
   const [notificationId, setNotificationId] = useState<string>()
   const explorerUrl = useNetworkVariable(EXPLORER_URL_VARIABLE_NAME)
+  const isPackageConfigured =
+    packageId !== CONTRACT_PACKAGE_ID_NOT_DEFINED &&
+    isValidSuiObjectId(packageId)
 
   const { transact: create } = useTransact({
     onBeforeStart: () => {
@@ -121,6 +126,15 @@ const GreetingForm = () => {
   }
 
   if (currentAccount == null) return <CustomConnectButton />
+
+  if (!isPackageConfigured) {
+    return (
+      <TextMessage>
+        Current network is not configured for this app. Please switch to a
+        supported network.
+      </TextMessage>
+    )
+  }
 
   if (isPending) return <Loading />
 

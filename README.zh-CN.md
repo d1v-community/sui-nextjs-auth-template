@@ -111,19 +111,18 @@ pnpm localnet:faucet 0xYOURADDRESS
 pnpm vercel:prod
 ```
 
-它等价于在根目录执行：
+它现在等价于在根目录执行：
 
 ```bash
-vercel --cwd packages/frontend --prod
+vercel --prod
 ```
 
-### 想在根目录直接跑 `vercel --prod`？
+根目录新增了 [`vercel.json`](/Users/apple/project/sui-nextjs-auth-template/vercel.json)，Vercel 会：
 
-两种常见方式（二选一即可）：
+- 只执行 `packages/frontend` 的构建
+- 直接发布 `packages/frontend/dist`
 
-1) 在 Vercel Project 设置里把 **Root Directory** 配置为 `packages/frontend`。
-
-2) 在本地用 Vercel CLI 把当前目录链接到对应项目（`vercel link`），并确保链接配置指向 `packages/frontend`（或者直接在 `packages/frontend` 目录下执行 `vercel link` / `vercel --prod`）。
+因此，不管是本地直接跑 `vercel --prod`，还是在 Vercel Dashboard 导入仓库，都建议把 **Root Directory** 保持在仓库根目录，让这份配置生效。
 
 ## 其他命令
 

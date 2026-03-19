@@ -156,8 +156,9 @@ pnpm vercel:prod
 
 Notes:
 
-- `pnpm vercel:prod` deploys the Next.js app in `packages/frontend` by running `vercel --cwd packages/frontend --prod`.
-- If you want to run `vercel --prod` directly from the repo root, configure your Vercel Project Root Directory as `packages/frontend` (and/or run `vercel link` accordingly).
+- The repo root now includes [`vercel.json`](/Users/apple/project/sui-nextjs-auth-template/vercel.json), so `vercel` / `vercel --prod` run from the root will build only `packages/frontend` and publish `packages/frontend/dist`.
+- `pnpm vercel:prod` is now just a thin wrapper around `vercel --prod`.
+- If you deploy in Vercel Dashboard, keep the project root at the repository root so this config is picked up.
 
 ### Backend (Move) deployment
 

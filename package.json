@@ -69,8 +69,8 @@
     "mainnet:deploy:no-dependency-check": "pnpm --filter backend mainnet:deploy:no-dependency-check",
     "mainnet:address": "pnpm --filter backend mainnet:address",
 
-    "vercel:preview": "vercel --cwd packages/frontend",
-    "vercel:prod": "vercel --cwd packages/frontend --prod"
+    "vercel:preview": "vercel",
+    "vercel:prod": "vercel --prod"
   },
   "engines": {
     "node": ">=20"
