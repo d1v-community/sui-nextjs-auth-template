@@ -1,4 +1,4 @@
-import { getSqlClient } from '~~/server/db/client.mjs'
+import { getSqlClient, hasDatabaseUrl } from '~~/server/db/client.mjs'
 import {
   findWalletUserByAddress,
   upsertWalletUser,
@@ -13,6 +13,10 @@ function json(data: unknown, init?: ResponseInit) {
 
 export async function GET(request: Request) {
   try {
+    if (!hasDatabaseUrl()) {
+      return json({ user: null, databaseEnabled: false })
+    }
+
     const { searchParams } = new URL(request.url)
     const walletAddress = searchParams.get('walletAddress')
 
@@ -36,10 +40,14 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
+    if (!hasDatabaseUrl()) {
+      return json({ user: null, databaseEnabled: false }, { status: 200 })
+    }
+
     const payload = await request.json()
     const user = await upsertWalletUser(getSqlClient(), payload)
 
-    return json({ user }, { status: 200 })
+    return json({ user, databaseEnabled: true }, { status: 200 })
   } catch (error) {
     const message =
       error instanceof Error ? error.message : 'Failed to upsert user'

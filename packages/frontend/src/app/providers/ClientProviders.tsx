@@ -15,7 +15,13 @@ import ThemeProvider from './ThemeProvider'
 
 const themeSettings = getThemeSettings()
 
-export default function ClientProviders({ children }: { children: ReactNode }) {
+export default function ClientProviders({
+  children,
+  databaseEnabled,
+}: {
+  children: ReactNode
+  databaseEnabled: boolean
+}) {
   const { networkConfig } = useNetworkConfig()
 
   return (
@@ -28,7 +34,7 @@ export default function ClientProviders({ children }: { children: ReactNode }) {
           walletStashedName={APP_NAME}
           themeSettings={themeSettings}
         >
-          <WalletUserSync />
+          <WalletUserSync databaseEnabled={databaseEnabled} />
           {children}
         </SuiProvider>
       </ThemeProvider>

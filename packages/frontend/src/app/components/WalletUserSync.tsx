@@ -3,12 +3,21 @@
 import { useCurrentAccount, useCurrentWallet } from '@mysten/dapp-kit'
 import { useEffect, useRef } from 'react'
 
-const WalletUserSync = () => {
+const WalletUserSync = ({
+  databaseEnabled,
+}: {
+  databaseEnabled: boolean
+}) => {
   const currentAccount = useCurrentAccount()
   const { currentWallet, isConnected } = useCurrentWallet()
   const lastSyncedAddressRef = useRef<string | null>(null)
 
   useEffect(() => {
+    if (!databaseEnabled) {
+      lastSyncedAddressRef.current = null
+      return
+    }
+
     if (!isConnected || !currentAccount?.address) {
       lastSyncedAddressRef.current = null
       return
@@ -53,7 +62,7 @@ const WalletUserSync = () => {
     return () => {
       aborted = true
     }
-  }, [currentAccount?.address, currentWallet?.name, isConnected])
+  }, [currentAccount?.address, currentWallet?.name, databaseEnabled, isConnected])
 
   return null
 }

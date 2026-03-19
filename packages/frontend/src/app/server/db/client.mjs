@@ -2,10 +2,14 @@ import postgres from 'postgres'
 
 const globalKey = '__sdsSqlClient'
 
-function getDatabaseUrl() {
-  const databaseUrl = process.env.DATABASE_URL
+export function hasDatabaseUrl(databaseUrl = process.env.DATABASE_URL) {
+  return typeof databaseUrl === 'string' && databaseUrl.trim().length > 0
+}
 
-  if (!databaseUrl) {
+function getDatabaseUrl() {
+  const databaseUrl = process.env.DATABASE_URL?.trim()
+
+  if (!hasDatabaseUrl(databaseUrl)) {
     throw new Error('DATABASE_URL is not configured')
   }
 
