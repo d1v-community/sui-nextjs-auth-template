@@ -1,7 +1,7 @@
 {
-    "name": "Sui dApp Starter",
-    "short_name": "Sui dApp Starter",
-    "description": "Full-Stack Sui Starter on Steroids",
+    "name": "Sui Studio",
+    "short_name": "Sui Studio",
+    "description": "Sui Studio",
     "start_url": "/?utm_source=app_manifest",
     "icons": [
         {
