@@ -10,6 +10,7 @@ import useNetworkConfig from '~~/hooks/useNetworkConfig'
 import { APP_NAME } from '../config/main'
 import { getThemeSettings } from '../helpers/theme'
 import { ENetwork } from '../types/ENetwork'
+import WalletUserSync from '../components/WalletUserSync'
 import ThemeProvider from './ThemeProvider'
 
 const themeSettings = getThemeSettings()
@@ -27,6 +28,7 @@ export default function ClientProviders({ children }: { children: ReactNode }) {
           walletStashedName={APP_NAME}
           themeSettings={themeSettings}
         >
+          <WalletUserSync />
           {children}
         </SuiProvider>
       </ThemeProvider>

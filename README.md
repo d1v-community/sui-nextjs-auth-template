@@ -156,9 +156,45 @@ pnpm vercel:prod
 
 Notes:
 
-- The repo root now includes [`vercel.json`](/Users/apple/project/sui-nextjs-auth-template/vercel.json), so `vercel` / `vercel --prod` run from the root will build only `packages/frontend` and publish `packages/frontend/dist`.
+- The repo root now includes [`vercel.json`](/Users/apple/project/sui-nextjs-auth-template/vercel.json), so `vercel` / `vercel --prod` run from the root will build the Next.js app in `packages/frontend`.
 - `pnpm vercel:prod` is now just a thin wrapper around `vercel --prod`.
 - If you deploy in Vercel Dashboard, keep the project root at the repository root so this config is picked up.
+
+### Database and migrations
+
+The frontend now supports server-side database access through Next.js route handlers.
+
+Required env:
+
+- `DATABASE_URL=...`
+
+What is included:
+
+- Wallet login auto-sync: when a user connects a wallet, the frontend calls [`/api/users`](/Users/apple/project/sui-nextjs-auth-template/packages/frontend/src/app/api/users/route.ts) and upserts the user into the database.
+- SQL migration runner: execute `.sql` files in order and track them in `schema_migrations`.
+- Migration generator: create sequential files like `00001_init.sql`, `00002_add_profiles.sql`.
+
+Commands:
+
+```bash
+pnpm --filter frontend db:create-migration add_profiles
+pnpm --filter frontend db:migrate
+pnpm --filter frontend test
+```
+
+Migration files live in:
+
+- [`packages/frontend/db/migrations`](/Users/apple/project/sui-nextjs-auth-template/packages/frontend/db/migrations)
+
+The initial migration has already been created here:
+
+- [`packages/frontend/db/migrations/00001_init.sql`](/Users/apple/project/sui-nextjs-auth-template/packages/frontend/db/migrations/00001_init.sql)
+
+Current database behavior:
+
+- The migration upgrades the existing `users` table to support wallet fields.
+- Wallet connect will create or update a user by `wallet_address`.
+- The API stores `wallet_address`, `wallet_name`, `chain`, and `last_seen_at`.
 
 ### Backend (Move) deployment
 

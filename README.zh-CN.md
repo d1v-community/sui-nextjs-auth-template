@@ -119,10 +119,46 @@ vercel --prod
 
 根目录新增了 [`vercel.json`](/Users/apple/project/sui-nextjs-auth-template/vercel.json)，Vercel 会：
 
-- 只执行 `packages/frontend` 的构建
-- 直接发布 `packages/frontend/dist`
+- 构建 `packages/frontend` 这个 Next.js 应用
+- 以 Next.js 应用方式部署，而不是纯静态导出
 
 因此，不管是本地直接跑 `vercel --prod`，还是在 Vercel Dashboard 导入仓库，都建议把 **Root Directory** 保持在仓库根目录，让这份配置生效。
+
+## 数据库与 SQL 迁移
+
+前端现在已经支持通过 Next.js 服务端路由直接访问数据库。
+
+必需环境变量：
+
+- `DATABASE_URL=...`
+
+目前已经包含：
+
+- 钱包登录后自动同步用户：钱包连接成功时，前端会调用 [`/api/users`](/Users/apple/project/sui-nextjs-auth-template/packages/frontend/src/app/api/users/route.ts)，把用户 upsert 到数据库
+- SQL 迁移执行器：按顺序执行 `.sql` 文件，并记录到 `schema_migrations`
+- SQL 迁移生成器：可以连续生成 `00001_init.sql`、`00002_xxx.sql` 这种文件
+
+常用命令：
+
+```bash
+pnpm --filter frontend db:create-migration add_profiles
+pnpm --filter frontend db:migrate
+pnpm --filter frontend test
+```
+
+迁移文件目录：
+
+- [`packages/frontend/db/migrations`](/Users/apple/project/sui-nextjs-auth-template/packages/frontend/db/migrations)
+
+`00001_init.sql` 已经帮你生成好了，位置在：
+
+- [`packages/frontend/db/migrations/00001_init.sql`](/Users/apple/project/sui-nextjs-auth-template/packages/frontend/db/migrations/00001_init.sql)
+
+当前数据库行为：
+
+- 迁移会在现有 `users` 表上补齐钱包相关字段
+- 钱包连接后会按 `wallet_address` 创建或更新用户
+- 当前会写入 `wallet_address`、`wallet_name`、`chain`、`last_seen_at`
 
 ## 其他命令
 
