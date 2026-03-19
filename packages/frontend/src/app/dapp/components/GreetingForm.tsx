@@ -130,8 +130,7 @@ const GreetingForm = () => {
   if (!isPackageConfigured) {
     return (
       <TextMessage>
-        Current network is not configured for this app. Please switch to a
-        supported network.
+        No contract is configured for the current network.
       </TextMessage>
     )
   }
