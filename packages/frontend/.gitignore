@@ -55,8 +55,5 @@ lerna-debug.log*
 # typescript
 *.tsbuildinfo
 
-# Firebase
-.firebase/*
-
 # Arweave
 arweave-keyfile*

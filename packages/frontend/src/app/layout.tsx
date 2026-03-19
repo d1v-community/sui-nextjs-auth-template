@@ -11,6 +11,16 @@ import './styles/index.css'
 export const metadata: Metadata = {
   title: APP_NAME,
   description: APP_DESCRIPTION,
+  icons: {
+    icon: '/favicon.svg',
+    other: [
+      {
+        rel: 'mask-icon',
+        url: '/safari-pinned-tab.svg',
+        color: '#0f766e',
+      },
+    ],
+  },
 }
 
 export default function RootLayout({

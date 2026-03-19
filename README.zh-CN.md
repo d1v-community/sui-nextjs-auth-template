@@ -1,9 +1,18 @@
-# sui-nextjs-auth-template（pnpm Monorepo）
+# Sui Studio（pnpm Monorepo）
 
-这个仓库基于 **Sui dApp Starter**，使用 pnpm workspace 管理前后端代码：
+这个仓库基于 **Sui dApp Starter** 构建，感谢原项目提供的基础能力；这里更关注当前仓库本身完成的工作，包括 Next.js 前端、Move 合约部署流程、钱包连接流程、数据库用户同步，以及根目录下的 Vercel 部署方案。
 
 - `packages/frontend`：Next.js 前端
 - `packages/backend`：Move 合约 + Suibase 相关脚本
+
+目前这个项目主要包含：
+
+- 自定义钱包连接 UI 和链上交互入口
+- 基于 `NEXT_PUBLIC_*_CONTRACT_PACKAGE_ID` 的多网络合约调用配置
+- 合约部署后自动把 `packageId` 写入 `packages/frontend/.env.local`
+- 通过 Next.js 路由处理器完成钱包用户自动同步入库
+- SQL migration 执行器和 migration 文件生成能力
+- 基于根目录 [`vercel.json`](/Users/apple/project/sui-nextjs-auth-template/vercel.json) 的 Vercel 部署配置
 
 ## 环境要求
 

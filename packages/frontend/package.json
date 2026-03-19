@@ -13,8 +13,6 @@
     "db:migrate": "node ./scripts/run-migrations.mjs",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "format": "prettier --write './src/**/*.{js,jsx,ts,tsx}'",
-    "deploy:firebase:init": "firebase login && firebase use --add",
-    "deploy:firebase": "firebase deploy --only hosting",
     "deploy:walrus:testnet": "pnpm build && pnpx walrus-sites-deploy -n testnet",
     "deploy:walrus:mainnet": "pnpm build && pnpx walrus-sites-deploy -n mainnet",
     "deploy:arweave": "ARWEAVE_DEPLOYMENT=true pnpm run build && pnpx arkb deploy ./dist -w ./arweave-keyfile.json --auto-confirm"
