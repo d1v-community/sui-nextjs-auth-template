@@ -49,42 +49,42 @@ const Footer = () => {
           <HeartIcon className="h-4 w-4" />
           <span>by</span>
           <Link
-            href="https://github.com/suiware"
+            href="https://d1v.ai"
             target="_blank"
             rel="noopener noreferrer"
             highContrast={true}
           >
-            @suiware
+            d1v.ai
           </Link>
           <span>·</span>
           <Link
-            href="https://github.com/suiware/sui-dapp-starter/issues/new"
+            href="http://x.com/d1v_lab"
             target="_blank"
             rel="noopener noreferrer"
             highContrast={true}
           >
-            Support
+            @d1v_lab
           </Link>
         </div>
         <div className="text-center text-sm opacity-70">
-          SVG graphics, used in NFTs, have been borrowed from{' '}
+          Product design, engineering and ecosystem research by{' '}
           <Link
-            href="https://github.com/twitter/twemoji"
+            href="https://d1v.ai"
             target="_blank"
             rel="noopener noreferrer"
             highContrast={true}
           >
-            twitter/twemoji
+            d1v.ai
           </Link>
           <br />
-          and licensed under{' '}
+          Follow updates and releases on{' '}
           <Link
-            href="https://creativecommons.org/licenses/by/4.0/"
+            href="http://x.com/d1v_lab"
             target="_blank"
             rel="noopener noreferrer"
             highContrast={true}
           >
-            CC-BY 4.0
+            x.com/d1v_lab
           </Link>
         </div>
       </div>
