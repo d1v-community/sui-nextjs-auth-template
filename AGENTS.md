@@ -1,76 +1,53 @@
 # Agent Guide (AGENTS.md)
 
-These instructions apply to the entire `sui-nextjs-auth-template` repository.
+Use this file as the execution contract for work in this template.
 
-`AGENTS.md` is the canonical filename for this repo. `AGENT.md` remains only as a compatibility note for tooling that still looks for the singular name.
+## Planning First
 
-## Goal
+- Every non-trivial task must start by pruning stale or already-compressed completed items from `PLAN.md`, then writing the current goal, background, selected validators, and todo list before editing.
+- `PLAN.md` is the source of truth for scope, order, verification, evidence, and residual risk.
+- Keep at most one todo `in_progress` per execution thread unless work was intentionally delegated in parallel.
 
-This repository is a `pnpm` monorepo for a Sui dApp:
+## Checkoff Rule
 
-- `packages/frontend`: Next.js app
-- `packages/backend`: Move package and deployment helpers
+- Do not check off a todo until its assigned validators have passed and the evidence is written into `PLAN.md`.
+- If verification fails, keep the todo open, record the failure, and add the corrective next step.
+- Never mark work done based on implementation alone.
 
-When making changes, keep edits scoped to the package that owns the behavior.
+## Minimum Verification Before Checkoff
 
-## Workflow
+- `@onchain-backend-qa`: before checking off backend or contract work, run the relevant backend build/test path and record the result plus any environment blockers.
+- `@frontend-ui-qa`: before checking off UI or interaction work, relevant loading, empty, and error states must exist where relevant, and `pnpm frontend:lint` must pass.
+- `@cro-copy-qa`: before checking off copy work, rewrite against the CRO-copy standard: ICP + pain + desire, feature-to-benefit framing, and Promise / Proof / Push with short, scannable CTAs.
 
-- For any non-trivial task, create or update a written plan before editing code.
-- Treat the plan as the source of truth for order, verification, and remaining risk.
-- Every meaningful todo should include owner, verification method, status, and evidence.
-- Do not mark work complete until the required verification has passed.
+## Default Commands
 
-## Working Rules
-
-- Start from the repo root unless a task is clearly package-local.
-- Prefer minimal diffs; do not refactor unrelated code while solving a focused task.
-- Check for existing uncommitted changes before editing and avoid overwriting user work.
-- Prefer `rg` for code search and `pnpm` scripts for build, lint, test, and deploy workflows.
-- Do not edit generated or environment-specific files unless the task explicitly requires it:
-  - `packages/frontend/next-env.d.ts`
-  - `packages/frontend/dist/**`
-  - `packages/frontend/.next/**`
-  - `packages/frontend/.env.local`
-
-## Common Commands
-
-Run these from the repository root:
-
-- `pnpm dev`
-- `pnpm build`
-- `pnpm lint`
-- `pnpm test`
-- `pnpm frontend:build`
 - `pnpm frontend:lint`
+- `pnpm frontend:build`
 - `pnpm backend:build`
 - `pnpm backend:test`
 
-These depend on local Sui/Suibase tooling. Do not assume they are available unless verified in the environment.
+Treat failing verification as a blocker and record any missing wallet, chain, or local-tooling dependency in `PLAN.md`.
 
-## Verification
+## Validator Registry
 
-- After frontend or TypeScript changes, run:
-  - `pnpm frontend:lint`
-  - `pnpm frontend:build`
-- After backend Move or deployment-script changes, run:
-  - `pnpm backend:build`
-  - `pnpm backend:test`
-- If an environment dependency blocks verification, record the blocker explicitly in the plan and handoff.
+- `@frontend-ui-qa`: landing pages, wallet-connect states, forms, interaction quality, loading/empty/error states
+- `@cro-copy-qa`: hero copy, trust copy, proof blocks, CTA hierarchy, onboarding and docs copy
+- `@wallet-flow-qa`: wallet connect, disconnected state, wrong-network state, signed-in gated state
+- `@onchain-backend-qa`: backend package logic, Move or deployment helpers, build/test stability
+- `@responsive-accessibility-qa`: desktop/mobile layout, keyboard reachability, contrast, hierarchy clarity
+- `@security-config-qa`: secret handling, local config safety, public template hygiene
+- `@docs-setup-qa`: setup docs, command accuracy, first-run clarity, blocker notes
+- `@performance-seo-qa`: metadata, above-the-fold clarity, landing-page scanability
 
-## Security
+## Working Rules
 
-- Do not print or hardcode secrets.
-- Do not commit `.env`, `.env.local`, local package IDs, deployment caches, or generated build output.
+- Keep diffs focused. Avoid unrelated refactors across packages.
+- Start from the repo root unless the task is clearly package-local.
+- Prefer existing scripts and patterns over new tooling.
+- Do not hardcode secrets or commit `.env.local`, build output, package IDs, caches, or deployment metadata.
+- Prefer `rg` for search and read files in small chunks.
 
-## Operational
+## Handoff Format
 
-- Do not run `git commit` or create branches unless explicitly asked.
-- Report what changed, what was verified, what could not be verified, and the remaining risk.
-
----
-
-中文提示（简要）：
-
-- 先写计划，再改代码。
-- 每个 todo 要有验证方式和证据。
-- 不要提交 `.env`、构建产物或本地部署缓存。
+- Each validator handoff must include `Result`, `Checked`, `Passed`, `Failed`, `Not checked`, `Risk`, and `Plan update`.
