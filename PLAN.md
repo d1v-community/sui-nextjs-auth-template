@@ -19,7 +19,7 @@
   - Verification: choose a final name, run `rg -n "D1V DEMO" .`, and confirm only intentional planning references remain
   - Status: pending
   - Evidence: pending
-  - Notes: update header, metadata, pricing/product labels, and any other user-visible brand references together.
+  - Notes: update header, meta description, assistant title, CTA buttons, pricing/product labels, and any other user-visible brand references together.
 
 - [ ] Rewrite the original landing-page and setup copy so the foundation sells user trust and builder clarity. `@cro-copy-qa` `@frontend-ui-qa` `@docs-setup-qa`
   - Owner: main agent
