@@ -10,11 +10,9 @@
     "build": "pnpm backend:build && pnpm frontend:build",
     "lint": "pnpm frontend:lint",
     "format": "pnpm frontend:format",
-
     "init:template:greeting-react": "rm -rf ./packages/backend-counter && rm -rf ./packages/frontend-greeting-next && rm -rf ./packages/frontend-counter-react",
     "init:template:greeting-next": "rm -rf ./packages/backend-counter && rm -rf ./packages/frontend && rm -rf ./packages/frontend-counter-react && mv -f ./packages/frontend-greeting-next ./packages/frontend",
     "init:template:counter-react": "rm -rf ./packages/backend && rm -rf ./packages/frontend && rm -rf ./packages/frontend-greeting-next && mv -f ./packages/frontend-counter-react ./packages/frontend && mv -f ./packages/backend-counter ./packages/backend",
-    
     "frontend:dev": "pnpm --filter frontend dev",
     "frontend:build": "pnpm --filter frontend build",
     "frontend:lint": "pnpm --filter frontend lint",
@@ -23,10 +21,8 @@
     "frontend:deploy:walrus:testnet": "pnpm --filter frontend deploy:walrus:testnet",
     "frontend:deploy:walrus:mainnet": "pnpm --filter frontend deploy:walrus:mainnet",
     "frontend:deploy:arweave": "pnpm --filter frontend deploy:arweave",
-    
     "backend:build": "pnpm --filter backend build",
     "backend:test": "pnpm --filter backend test",
-
     "localnet:start": "pnpm --filter backend localnet:start && pnpm localnet:explorer:start",
     "localnet:stop": "pnpm --filter backend localnet:stop && pnpm localnet:explorer:stop",
     "localnet:status": "pnpm --filter backend localnet:status",
@@ -36,10 +32,9 @@
     "localnet:deploy": "pnpm --filter backend localnet:deploy",
     "localnet:deploy:no-dependency-check": "pnpm --filter backend localnet:deploy:no-dependency-check",
     "localnet:address": "pnpm --filter backend localnet:address",
-    "localnet:explorer:start":  "pnpm --filter backend localnet:explorer:start",
-    "localnet:explorer:stop":  "pnpm --filter backend localnet:explorer:stop",
-    "localnet:explorer:restart":  "pnpm --filter backend localnet:explorer:restart",
-
+    "localnet:explorer:start": "pnpm --filter backend localnet:explorer:start",
+    "localnet:explorer:stop": "pnpm --filter backend localnet:explorer:stop",
+    "localnet:explorer:restart": "pnpm --filter backend localnet:explorer:restart",
     "devnet:start": "pnpm --filter backend devnet:start",
     "devnet:stop": "pnpm --filter backend devnet:stop",
     "devnet:status": "pnpm --filter backend devnet:status",
@@ -48,7 +43,6 @@
     "devnet:deploy": "pnpm --filter backend devnet:deploy",
     "devnet:deploy:no-dependency-check": "pnpm --filter backend devnet:deploy:no-dependency-check",
     "devnet:address": "pnpm --filter backend devnet:address",
-
     "testnet:start": "pnpm --filter backend testnet:start",
     "testnet:stop": "pnpm --filter backend testnet:stop",
     "testnet:status": "pnpm --filter backend testnet:status",
@@ -57,7 +51,6 @@
     "testnet:deploy": "pnpm --filter backend testnet:deploy",
     "testnet:deploy:no-dependency-check": "pnpm --filter backend testnet:deploy:no-dependency-check",
     "testnet:address": "pnpm --filter backend testnet:address",
-
     "mainnet:start": "pnpm --filter backend mainnet:start",
     "mainnet:stop": "pnpm --filter backend mainnet:stop",
     "mainnet:status": "pnpm --filter backend mainnet:status",
@@ -66,7 +59,6 @@
     "mainnet:deploy": "pnpm --filter backend mainnet:deploy",
     "mainnet:deploy:no-dependency-check": "pnpm --filter backend mainnet:deploy:no-dependency-check",
     "mainnet:address": "pnpm --filter backend mainnet:address",
-
     "vercel:preview": "vercel",
     "vercel:prod": "vercel --prod"
   },
@@ -74,7 +66,7 @@
     "node": ">=20"
   },
   "devDependencies": {
-    "next": "16.2.0"
+    "next": "16.2.4"
   },
   "keywords": [
     "sui",
@@ -99,5 +91,5 @@
   },
   "bugs": {
     "url": "https://github.com/suiware/sui-dapp-starter/issues"
-  } 
+  }
 }
