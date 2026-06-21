@@ -29,6 +29,7 @@ function mapUserRow(row) {
     id: String(row.id),
     walletAddress: row.wallet_address,
     walletName: row.wallet_name ?? row.display_name,
+    avatarUrl: row.avatar_url ?? null,
     chain: row.chain,
     createdAt: row.created_at,
     updatedAt: row.updated_at,
@@ -44,6 +45,7 @@ export async function findWalletUserByAddress(sql, walletAddress) {
       display_name,
       wallet_address,
       wallet_name,
+      avatar_url,
       chain,
       created_at,
       updated_at,
@@ -95,6 +97,7 @@ export async function upsertWalletUser(sql, input) {
       display_name,
       wallet_address,
       wallet_name,
+      avatar_url,
       chain,
       created_at,
       updated_at,
@@ -102,4 +105,29 @@ export async function upsertWalletUser(sql, input) {
   `
 
   return mapUserRow(rows[0])
+}
+
+export async function updateWalletUserAvatar(sql, walletAddress, avatarUrl) {
+  const normalizedAddress = normalizeWalletAddress(walletAddress)
+
+  const rows = await sql`
+    UPDATE users
+    SET
+      avatar_url = ${avatarUrl},
+      updated_at = NOW(),
+      last_seen_at = NOW()
+    WHERE wallet_address = ${normalizedAddress}
+    RETURNING
+      id,
+      display_name,
+      wallet_address,
+      wallet_name,
+      avatar_url,
+      chain,
+      created_at,
+      updated_at,
+      last_seen_at
+  `
+
+  return rows[0] ? mapUserRow(rows[0]) : null
 }

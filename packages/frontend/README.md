@@ -1,5 +1,30 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Optional storage upload support
+
+This template includes a minimal `storage.d1v.ai` upload entry for wallet users.
+
+Required server env:
+
+```env
+STORAGE_BASE_URL=https://storage.d1v.ai
+STORAGE_API_KEY=sk_xxxxxxxxxxxxxxxxx
+```
+
+Optional:
+
+```env
+STORAGE_PUBLIC_BASE_URL=https://storage.d1v.ai/public/files
+STORAGE_PROJECT_ID=project_xxx
+STORAGE_PROJECT_EMAIL=project-id@d1vproject.d1v.ai
+```
+
+Behavior:
+
+- if storage env exists, connected wallet users can upload an avatar-like image through `/api/users/avatar`
+- if storage env is missing, UI stays disabled and the API returns a clear configuration error
+- storage docs: `https://storage.d1v.ai/docs`
+
 ## Getting Started
 
 First, run the development server:

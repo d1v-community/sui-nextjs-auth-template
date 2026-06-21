@@ -1,4 +1,5 @@
 import { hasDatabaseUrl } from '~~/server/db/client.mjs'
+import { hasStorageEnv } from '~~/server/storage/env'
 
 const CONTRACT_ENV_VARS = [
   'NEXT_PUBLIC_LOCALNET_CONTRACT_PACKAGE_ID',
@@ -19,8 +20,9 @@ function getConfiguredContractEnvVars() {
 const EnvironmentRequirements = () => {
   const configuredContractEnvVars = getConfiguredContractEnvVars()
   const databaseEnabled = hasDatabaseUrl()
+  const storageEnabled = hasStorageEnv()
 
-  if (configuredContractEnvVars.length > 0 && databaseEnabled) {
+  if (configuredContractEnvVars.length > 0 && databaseEnabled && storageEnabled) {
     return null
   }
 
@@ -46,6 +48,20 @@ const EnvironmentRequirements = () => {
           <div className="mt-1">
             <code>DATABASE_URL</code> is empty, so wallet login will not sync users
             to the database. The frontend will still work normally.
+          </div>
+        </div>
+      ) : null}
+
+      {!storageEnabled ? (
+        <div className="rounded-2xl border border-amber-300/70 bg-amber-50/90 px-4 py-3 text-sm text-amber-950 shadow-sm dark:border-amber-400/25 dark:bg-amber-950/30 dark:text-amber-100">
+          <div className="font-semibold">Storage upload is disabled in this environment</div>
+          <div className="mt-1">
+            <code>STORAGE_BASE_URL</code> or <code>STORAGE_API_KEY</code> is empty, so upload
+            routes must stay disabled and return a clear configuration error until you
+            configure them.
+          </div>
+          <div className="mt-2">
+            Docs: <code>https://storage.d1v.ai/docs</code>
           </div>
         </div>
       ) : null}
